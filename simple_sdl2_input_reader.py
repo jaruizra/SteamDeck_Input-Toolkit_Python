@@ -25,6 +25,11 @@ REFRESH_DELAY_MS = 1000 // REFRESH_RATE_HZ # Calculate delay in milliseconds
 # lectura y salida
 REFRESH_RATE_MS = 16  # 60Hz frecuencia aprox
 
+# Check if the script is run with sudo
+if os.geteuid() != 0:
+    print("Error: This script must be run as root. Please use 'sudo'.")
+    sys.exit(1)
+    
 def init_joystick(joystick_index):
     """
     Initializes the SDL2 library and opens a specific joystick

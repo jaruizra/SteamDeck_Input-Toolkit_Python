@@ -24,6 +24,11 @@ NUM_BUTTONS_TO_TRACK = 20   # Number of buttons to monitor (covers back buttons)
 REFRESH_RATE_HZ = 60        # Target refresh rate for the display
 REFRESH_DELAY_SEC = int(1 / REFRESH_RATE_HZ) # Calculate delay in seconds
 
+# Check if the script is run with sudo
+if os.geteuid() != 0:
+    print("Error: This script must be run as root. Please use 'sudo'.")
+    sys.exit(1)
+    
 class Joystick:
     """A class to manage and read data from an SDL2 joystick."""
 
