@@ -1,42 +1,46 @@
-# Steam Deck SDL2 Mapping Guide
+# SteamDeck Input Toolkit (SDL2 + Python)
 
-This repository is a complete and practical resource for developers who want to understand and utilize the Steam Deck’s joystick and button input using SDL2. It includes everything you need to:
+This repository is a practical toolkit for developers who want to use the Steam Deck’s built-in controls (joysticks, triggers, and buttons) in Python. It provides everything you need to:
 
-- Use reference mappings for buttons and analog sticks
-- Reuse two working scripts to read and process inputs
-- Learn how SDL2 handles joystick events
-- Integrate Steam Deck input into your projects using a clean API
+- Understand how SDL2 handles joystick input on the Steam Deck
+- Reference accurate button and axis mappings
+- Read and process controller input with minimal or modular scripts
+- Integrate input handling into your own games or tools using a clean API
 
-Whether you're building a game, an input tool, or just experimenting, this guide makes Steam Deck controller integration easy.
+Whether you're prototyping, experimenting, or building a full project, this toolkit simplifies Steam Deck input handling with Python.
 
+---
 
-## ✨ SteamDeck Controls Mapping to SDL2
+## ✨ Steam Deck Controls Mapped to SDL2
 
-This project includes a visual reference that matches Steam Deck physical controls to the IDs SDL2 recognizes:
+This project includes a visual reference showing how Steam Deck controls map to SDL2's input identifiers.
 
 ![Steam Deck Button Mapping](./resources_readme/Steam_dech_SDL2_MAPPING.png)
 
-- **Joystick & Trigger Axes** come from: `event.type == sdl2.SDL_JOYAXISMOTION`
-  - Use: `event.jaxis.axis` (ID), and `event.jaxis.value` (value)
+- **Joystick & Trigger Axes:**
+  - Detected via `event.type == sdl2.SDL_JOYAXISMOTION`
+  - Access with `event.jaxis.axis` (ID), and `event.jaxis.value` (value)
 
-- **Buttons & D-Pad** come from: `event.type in (sdl2.SDL_JOYBUTTONDOWN, SDL_JOYBUTTONUP)`
-  - Use: `event.jbutton.button` (ID), and `event.jbutton.state` (0 or 1)
+
+- **Buttons & D-Pad:**
+  - Detected via `event.type in (sdl2.SDL_JOYBUTTONDOWN, SDL_JOYBUTTONUP)`
+  - Access with `event.jbutton.button` (ID), and `event.jbutton.state` (0 or 1)
 
 
 > ⚠️ Note: Touchpads are not handled by SDL2's joystick API and will not show up in this mapping.
 
 
-## 📂 Code Overview
+## 📂 Overview of Included Scripts
 
 Scripts included:
 
 - `steamdeck_input_api.py`: Object-oriented version with reusable API and terminal UI.
-- `simple_sdl2_input_reader.py`: Direct event polling and logging — ideal for understanding how SDL2 works.
+- `simple_sdl2_input_reader.py`: Minimal SDL2 demo. Direct event polling and logging — ideal for understanding how SDL2 works.
 
 
 ## 🔧 Requirements
 
-This project relies on a few Python libraries. Install them using the included `requirements.txt` file:
+To install dependencies, use the included `requirements.txt` file:
 
 ### `requirements.txt`
 ```txt
@@ -49,11 +53,6 @@ To install everything:
 pip install -r requirements.txt
 ```
 
-**System Requirements:**
-- Python 3
-- Linux (tested on Ubuntu)
-- A Steam Deck (OLED or LCD model)
-
 ---
 
 # 🧱 Script 1 — Class-Based API Version
@@ -62,7 +61,7 @@ pip install -r requirements.txt
 
 This modular version defines a `Joystick` class that encapsulates all SDL2 handling. It includes getter methods and even a visual dashboard using the `rich` library.
 
-### 🔹 How to Use the Joystick API
+### How to Use the Joystick API
 
 1. **Import and Create an Instance:**
 ```python
@@ -90,11 +89,11 @@ print(js.full_state)
 js.close()
 ```
 
-### 🩰 General Methods
+### 🩰 Core Methods
 - `update()` — Polls SDL events and updates internal state
 - `close()` — Releases SDL resources
 
-### 📋 Return Methods
+### 📋 Properties
 - `face_buttons` → States of A, B, X, Y
 - `dpad_state` → D-pad buttons (Up/Down/Left/Right)
 - `shoulder_state` → L1/R1 buttons + L2/R2 axes
@@ -125,9 +124,9 @@ python3 scripts/simple_sdl2_input_reader.py
 
 ## 🧠 How SDL2 Reads Input (For Reference)
 
-SDL2 uses a polling loop to process joystick input events.
+SDL2 uses a polling loop to process joystick input events. Learn while checking the File: `simple_sdl2_input_reader.py`
 
-### Axis Events (`SDL_JOYAXISMOTION`)
+### Axis Motion Example (`SDL_JOYAXISMOTION`)
 ```python
 if event.type == sdl2.SDL_JOYAXISMOTION:
     axis_id = event.jaxis.axis
@@ -137,7 +136,7 @@ if event.type == sdl2.SDL_JOYAXISMOTION:
 axis_values[axis_id] = value
 ```
 
-### Button Events (`SDL_JOYBUTTONDOWN`, `SDL_JOYBUTTONUP`)
+### Button Press Example (`SDL_JOYBUTTONDOWN`, `SDL_JOYBUTTONUP`)
 ```python
 if event.type in (sdl2.SDL_JOYBUTTONDOWN, sdl2.SDL_JOYBUTTONUP):
     button_id = event.jbutton.button
