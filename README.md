@@ -107,6 +107,8 @@ python3 steamdeck_input_api.py
 ```
 Displays a live input dashboard in the terminal.
 
+![Check_Reading_Inputs](./resources_readme/check_controls.png)
+
 ---
 
 # 🥪 Script 2 — Minimal SDL2 Input Reader
