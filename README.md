@@ -89,7 +89,7 @@ print(js.full_state)
 js.close()
 ```
 
-### 🩰 Core Methods
+### 📋 Core Methods
 - `update()` — Polls SDL events and updates internal state
 - `close()` — Releases SDL resources
 
@@ -111,7 +111,7 @@ Displays a live input dashboard in the terminal.
 
 ---
 
-# 🥪 Script 2 — Minimal SDL2 Input Reader
+# 🧱 Script 2 — Minimal SDL2 Input Reader
 
 ### 📄 File: `simple_sdl2_input_reader.py`
 
